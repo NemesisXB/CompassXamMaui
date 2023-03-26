@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CompassXam.MainPage"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             xmlns:vm="clr-namespace:CompassXam"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+
+    <ContentPage.BindingContext>
+        <vm:MainPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing" Command="{Binding AppearCommand}" />
+        <xct:EventToCommandBehavior EventName="Disappearing" Command="{Binding DisappearCommand}" />
+    </ContentPage.Behaviors>
+
+    <StackLayout>
+        <Grid x:Name="compassGrid" Margin="50,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <skia:SKCanvasView x:Name="compassCanvasView" PaintSurface="compassCanvasView_PaintSurface"
+                                   HeightRequest="{Binding Width, Source={x:Reference compassGrid}}"
+                                   MinimumHeightRequest="{Binding Height, Source={x:Reference compassGrid}}"
+                                   WidthRequest="{Binding Height, Source={x:Reference compassGrid}}"
+                                   MinimumWidthRequest="{Binding Width, Source={x:Reference compassGrid}}"/>
+            <skia:SKCanvasView x:Name="arrowCanvasView" PaintSurface="arrowCanvasView_PaintSurface" />
+        </Grid>
+    </StackLayout>
+
+</ContentPage>
